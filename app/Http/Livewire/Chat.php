@@ -9,7 +9,6 @@ class Chat extends Component
 {
 
     public $messageText;
-    public $sxx;
 
     public function render()
     {
