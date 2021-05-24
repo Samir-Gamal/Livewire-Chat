@@ -27,7 +27,6 @@ Route::get('delete_chat', function () {
     Message::truncate();
     return redirect()->route('dashboard');
 
-    
 })->middleware(['auth'])->name('delete_chat');
 
 require __DIR__.'/auth.php';
