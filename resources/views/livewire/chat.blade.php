@@ -1,46 +1,60 @@
 <div wire:poll>
-    <div class="col-12 px-0">
-        <div class="px-4 py-5 chat-box bg-white">
-        @forelse ($messages as $message)
+<div class="container">
+  <h3 class=" text-center">  
+    
+    @if(auth()->user()->email == "samir.gamal77@yahoo.com")
+    <a class="btn btn-primary" href="{{Url('delete_chat')}}">حذف المحادثة</a>
+    @endif
+        
+    مورا سوفت 
+  
+  </h3>
+ 
+  <div class="messaging">
+        <div  class="inbox_msg">
+          <div  class="mesgs">
+            <div id="chat" class="msg_history">
+              @forelse ($messages as $message)
 
-            @if($message->user->name == auth()->user()->name)
-                <!-- Reciever Message-->
-                    <div class="media w-50 ml-auto mb-3">انا
-                        <div class="media-body">
-                            <div class="bg-primary rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">{{ $message->message_text }}</p>
-                            </div>
-                            <p class="small text-muted">{{ $message->created_at->format('Y-m-d H:i') }}</p>
+              @if($message->user->name == auth()->user()->name)
+                  <!-- Reciever Message-->
+                      <div class="outgoing_msg">
+                        <div class="sent_msg">
+                          <p>{{ $message->message_text }}</p>
+                          <span class="time_date"> {{ $message->created_at->format('Y-m-d H:i') }}</span> </div>
+                      </div>
+                      
+              @else
+                
+                      <div class="incoming_msg">{{ $message->user->name }}
+                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                        <div class="received_msg">
+                          <div class="received_withd_msg">
+                            <p>{{ $message->message_text }}</p>
+                            <span class="time_date">{{ $message->created_at->format('Y-m-d H:i') }}</span></div>
                         </div>
-                    </div>
+                      </div>
 
+                  @endif
+              @empty
+                 <h5 style="text-align: center;color:red"> لاتوجد رسائل سابقة</h5>
+              @endforelse
 
-
-            @else
-                <!-- Sender Message-->
-                    <div class="media w-50 mb-3">{{ $message->user->name }}
-                        <div class="media-body ml-3">
-                            <div class="bg-warning rounded py-2 px-3 mb-2">
-                                <p class="text-small mb-0 text-white">{{ $message->message_text }}</p>
-                            </div>
-                            <p class="small text-muted">{{ $message->created_at->format('Y-m-d H:i') }}</p>
-                        </div>
-                    </div>
-                @endif
-            @empty
-                لاتوجد رسائل سابقة
-            @endforelse
-        </div>
-        <!-- Typing area -->
-        <form wire:submit.prevent="sendMessage">
-            <div class="mt-12 row">
-                <div class="col-9">
-                    <input wire:model.defer="messageText" type="text" placeholder="اكتب رسالتك" required class="form-control"/>
-                </div>
-                <div class="col-3">
-                    <button type="submit" class="btn btn-primary">ارسال</button>
-                </div>
             </div>
-        </form>
+            <div class="type_msg">
+              <div class="input_msg_write">
+                <form wire:submit.prevent="sendMessage">
+                  <input onkeydown='scrollDown()' wire:model.defer="messageText" type="text" class="write_msg" placeholder="Type a message" />
+                  <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                </form>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+    
+      </div>
     </div>
-</div>
+  </div>
+
+
