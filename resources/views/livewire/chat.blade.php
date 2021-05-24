@@ -21,7 +21,9 @@
                       <div class="outgoing_msg">
                         <div class="sent_msg">
                           <p>{{ $message->message_text }}</p>
-                          <span class="time_date"> {{ $message->created_at->format('Y-m-d H:i') }}</span> </div>
+                          <span class="time_date"> {{  $message->created_at->diffForHumans(null, false, false) }}</span> </div>
+                         
+
                       </div>
                       
               @else
@@ -31,7 +33,7 @@
                         <div class="received_msg">
                           <div class="received_withd_msg">
                             <p>{{ $message->message_text }}</p>
-                            <span class="time_date">{{ $message->created_at->format('Y-m-d H:i') }}</span></div>
+                            <span class="time_date">{{  $message->created_at->diffForHumans(null, false, false) }}</span></div>
                         </div>
                       </div>
 
@@ -44,8 +46,8 @@
             <div class="type_msg">
               <div class="input_msg_write">
                 <form wire:submit.prevent="sendMessage">
-                  <input onkeydown='scrollDown()' wire:model.defer="messageText" type="text" class="write_msg" placeholder="Type a message" />
-                  <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                  <input onkeydown='scrollDown()' wire:model.defer="messageText" type="text" class="write_msg" placeholder="اكتب رسالتك" />
+                  <button class="msg_send_btn" type="submit">ارسال</button>
                 </form>
               </div>
             </div>
